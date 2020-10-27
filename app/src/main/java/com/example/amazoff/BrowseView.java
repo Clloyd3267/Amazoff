@@ -7,4 +7,6 @@ public class BrowseView extends View {
     public BrowseView(Context context) {
         super(context);
     }
+
+    
 }
