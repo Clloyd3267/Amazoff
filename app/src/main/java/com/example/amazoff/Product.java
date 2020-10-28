@@ -1,6 +1,7 @@
 package com.example.amazoff;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class Product
 {
@@ -69,6 +70,7 @@ public class Product
         rating = 2;
         price = 0.5;
         image = null;
+//        image = BitmapFactory.decodeResource(getResources(), R.drawable.xbox_one_s);
     }
 
     // Final Constructor
