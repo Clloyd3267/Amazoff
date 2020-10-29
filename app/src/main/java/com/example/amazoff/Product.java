@@ -13,17 +13,15 @@ package com.example.amazoff;
 // Imports
 import android.graphics.Bitmap;
 
-import java.io.Serializable;
-
 /**
  * Model class to store data for a single product.
  */
-public class Product implements Serializable
+public class Product
 {
     /**
-     * The product image.
+     * The product id.
      */
-    private int productID;
+    private int id;
 
     /**
      * The product name.
@@ -60,6 +58,7 @@ public class Product implements Serializable
      */
     public Product()
     {
+        id = -1;
         name = "";
         description = "";
         rating = 0;
@@ -71,6 +70,7 @@ public class Product implements Serializable
     /**
      * Constructor for class Product.
      * 
+     * @param id The product id to set.
      * @param name The product name to set.
      * @param description The product description to set.
      * @param rating The product rating to set.
@@ -78,8 +78,9 @@ public class Product implements Serializable
      * @param price The product price to set.
      * @param image The product image to set.
      */
-    public Product(String name, String description, int rating, int numReviews, double price, Bitmap image) 
+    public Product(int id, String name, String description, int rating, int numReviews, double price, Bitmap image) 
     {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.rating = rating;
@@ -88,12 +89,24 @@ public class Product implements Serializable
         this.image = image;
     }
 
-    public int getProductID() {
-        return productID;
+    /**
+     * Getter for product id.
+     * 
+     * @return (int): The id of this product.
+     */    
+    public int getID()
+    {
+        return id;
     }
 
-    public void setProductID(int productID) {
-        this.productID = productID;
+    /**
+     * Setter for product id.
+     * 
+     * @param id The product id to set.
+     */
+    public void setID(int id) 
+    {
+        this.id = id;
     }
 
     /**

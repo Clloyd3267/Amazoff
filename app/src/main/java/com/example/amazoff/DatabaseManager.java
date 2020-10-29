@@ -108,7 +108,7 @@ public class DatabaseManager extends SQLiteOpenHelper
      * SQL Statement to delete the products table.
      */
     private static final String SQL_DELETE_PRODUCTS = "DROP TABLE IF EXISTS " +
-            DatabaseContract.Product.TABLE_NAME;
+                                                      DatabaseContract.Product.TABLE_NAME;
 
 
     /**
@@ -118,7 +118,6 @@ public class DatabaseManager extends SQLiteOpenHelper
      */
     public DatabaseManager(Context context)
     {
-        // Create the database
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -198,10 +197,10 @@ public class DatabaseManager extends SQLiteOpenHelper
 
         // Get product data for each product and store in a new Product object
         ArrayList<Product> products = new ArrayList<Product>( );
-        while( cursor.moveToNext())
+        while (cursor.moveToNext())
         {
             Product product = new Product();
-            product.setProductID(cursor.getInt(0));
+            product.setID(cursor.getInt(0));
             product.setName(cursor.getString(1));
             product.setDescription(cursor.getString(2));
             product.setRating(cursor.getInt(3));
@@ -221,27 +220,31 @@ public class DatabaseManager extends SQLiteOpenHelper
         return products;
     }
 
-    public Product getProductByID(int ID)
+    /**
+     * A function to return a product from the database by ID.
+     * 
+     * @param id The id of the product to find.
+     * @return (Product): The returned product.
+     */    
+    public Product getProductByID(int id)
     {
         // Get the current database with read privileges
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // Create query to get all products
-//        String sqlQuery = "SELECT * FROM " + DatabaseContract.Product.TABLE_NAME;
-
-        String sqlQuery = "SELECT * FROM " + DatabaseContract.Product.TABLE_NAME;
-        sqlQuery += " WHERE " + DatabaseContract.Product.COLUMN_NAME_ID + " = " + ID;
+        // Create query to get a single product by ID
+        String sqlQuery = "SELECT * FROM " + DatabaseContract.Product.TABLE_NAME +
+                          " WHERE " + DatabaseContract.Product.COLUMN_NAME_ID + 
+                          " = " + id;
 
         // Run query and create cursor to access data
         Cursor cursor = db.rawQuery(sqlQuery, null);
-
-        Product product = new Product();
-
+        
         // Get product data for each product and store in a new Product object
-        if ( cursor.moveToNext())
+        Product product = null;
+        if (cursor.moveToNext())
         {
-
-            product.setProductID(cursor.getInt(0));
+            product = new Product();
+            product.setID(cursor.getInt(0));
             product.setName(cursor.getString(1));
             product.setDescription(cursor.getString(2));
             product.setRating(cursor.getInt(3));
@@ -254,8 +257,6 @@ public class DatabaseManager extends SQLiteOpenHelper
                     0,
                     imageByteArray.length);
             product.setImage(image);
-
-
         }
         cursor.close();
         return product;
