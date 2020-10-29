@@ -70,7 +70,6 @@ public class Product
     /**
      * Constructor for class Product.
      * 
-     * @param id The product id to set.
      * @param name The product name to set.
      * @param description The product description to set.
      * @param rating The product rating to set.
@@ -78,9 +77,9 @@ public class Product
      * @param price The product price to set.
      * @param image The product image to set.
      */
-    public Product(int id, String name, String description, int rating, int numReviews, double price, Bitmap image) 
+    public Product(String name, String description, int rating, int numReviews, double price, Bitmap image) 
     {
-        this.id = id;
+        this.id = -1;
         this.name = name;
         this.description = description;
         this.rating = rating;
