@@ -13,11 +13,18 @@ package com.example.amazoff;
 // Imports
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Model class to store data for a single product.
  */
-public class Product
+public class Product implements Serializable
 {
+    /**
+     * The product image.
+     */
+    private int productID;
+
     /**
      * The product name.
      */
@@ -79,6 +86,14 @@ public class Product
         this.numReviews = numReviews;
         this.price = price;
         this.image = image;
+    }
+
+    public int getProductID() {
+        return productID;
+    }
+
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     /**

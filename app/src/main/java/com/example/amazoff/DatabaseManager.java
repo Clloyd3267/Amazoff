@@ -201,6 +201,7 @@ public class DatabaseManager extends SQLiteOpenHelper
         while( cursor.moveToNext())
         {
             Product product = new Product();
+            product.setProductID(cursor.getInt(0));
             product.setName(cursor.getString(1));
             product.setDescription(cursor.getString(2));
             product.setRating(cursor.getInt(3));
@@ -218,5 +219,45 @@ public class DatabaseManager extends SQLiteOpenHelper
         }
         cursor.close();
         return products;
+    }
+
+    public Product getProductByID(int ID)
+    {
+        // Get the current database with read privileges
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Create query to get all products
+//        String sqlQuery = "SELECT * FROM " + DatabaseContract.Product.TABLE_NAME;
+
+        String sqlQuery = "SELECT * FROM " + DatabaseContract.Product.TABLE_NAME;
+        sqlQuery += " WHERE " + DatabaseContract.Product.COLUMN_NAME_ID + " = " + ID;
+
+        // Run query and create cursor to access data
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        Product product = new Product();
+
+        // Get product data for each product and store in a new Product object
+        if ( cursor.moveToNext())
+        {
+
+            product.setProductID(cursor.getInt(0));
+            product.setName(cursor.getString(1));
+            product.setDescription(cursor.getString(2));
+            product.setRating(cursor.getInt(3));
+            product.setNumReviews(cursor.getInt(4));
+            product.setPrice(cursor.getDouble(5));
+
+            // Decompress and get bitmap image from byte stream
+            byte[] imageByteArray = cursor.getBlob(6);
+            Bitmap image = BitmapFactory.decodeByteArray(imageByteArray,
+                    0,
+                    imageByteArray.length);
+            product.setImage(image);
+
+
+        }
+        cursor.close();
+        return product;
     }
 }  // End of class DatabaseManager
