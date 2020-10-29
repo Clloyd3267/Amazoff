@@ -176,8 +176,6 @@ public class DatabaseManager extends SQLiteOpenHelper
         values.put(DatabaseContract.Product.COLUMN_NAME_PRICE, product.getPrice());
         values.put(DatabaseContract.Product.COLUMN_NAME_IMAGE, imageByteArray);
 
-        db.close();
-
         // Insert the new row, returning the primary key value of the new row
         return db.insert(DatabaseContract.Product.TABLE_NAME, null, values);
     }
@@ -219,7 +217,6 @@ public class DatabaseManager extends SQLiteOpenHelper
             products.add(product);
         }
         cursor.close();
-        db.close();
         return products;
     }
 }  // End of class DatabaseManager
