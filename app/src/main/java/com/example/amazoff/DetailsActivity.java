@@ -67,6 +67,10 @@ public class DetailsActivity extends AppCompatActivity {
         mainImage.setMinimumWidth(width);
         mainImage.setMaxHeight(height / 2);
 
+        //crete go to cart button
+//        Button goToCart = findViewById(R.id.goToCartButton);
+
+
         // display product details
         TextView productTitle = findViewById(R.id.productTitle);
         TextView productDescription = findViewById(R.id.productDescription);

@@ -2,6 +2,7 @@ package com.example.amazoff;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,8 @@ import android.os.Parcelable;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -33,9 +36,19 @@ public class BrowseActivity extends AppCompatActivity {
     private Context thisContext;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bar, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         dataMan = new DatabaseManager(this);    //create new database
 
@@ -49,7 +62,8 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     public void updateView () {
-        RelativeLayout thisLayout = new RelativeLayout(this);  // create relative layout to hold image views in
+        RelativeLayout thisLayout = findViewById(R.id.mainBrowseLayout);  // create relative layout to hold image views in
+//        Button goToCart = findViewById(R.id.goToCartButton);
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -111,6 +125,7 @@ public class BrowseActivity extends AppCompatActivity {
         }
 
         scrollView.addView(productImages);
+//        thisLayout.addView(goToCart);
         thisLayout.addView(scrollView);
         setContentView(thisLayout);
     }
@@ -123,7 +138,7 @@ public class BrowseActivity extends AppCompatActivity {
         public void onClick( View v) {
 //            openDetailsView(v, activeProduct);
             Intent newView = new Intent(thisContext, DetailsActivity.class);
-            newView.putExtra("Product ID", String.valueOf(activeProduct.getProductID()));
+            newView.putExtra("Product ID", String.valueOf(activeProduct.getID()));
             thisContext.startActivity(newView);
 
         }
