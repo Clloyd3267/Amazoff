@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 
         // Open database controller
         dbManager = new DatabaseManager(this);
-        // TODO: Delete previous database data here?
+        dbManager.resetDatabase();  // TODO: How do we init database and reset?
 
         // TODO: Move this to a load data function in DatabaseManager?
         // Convert image resources to Bitmaps

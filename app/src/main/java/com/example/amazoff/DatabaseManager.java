@@ -150,6 +150,18 @@ public class DatabaseManager extends SQLiteOpenHelper
         onCreate(db);                     // Re-create tables
     }
 
+    /**
+     * Method to reset database.
+     * 
+     * Deletes all tables and data and recreates database.
+     */
+    public void resetDatabase()
+    {
+        // Get the current database with write privileges
+        SQLiteDatabase db = this.getWritableDatabase();     
+        this.onUpgrade(db, 0, 0);
+    }
+
     /* ====================================================================== */
     /* ==================== Data Manipulator Functions ====================== */
     /* ====================================================================== */
