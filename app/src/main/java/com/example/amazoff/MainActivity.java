@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import java.util.ArrayList;
 
 /**
  * Main Activity class which acts as the entry point to this app.
@@ -27,8 +26,6 @@ public class MainActivity extends AppCompatActivity
      * A class to access the local database. 
      */
     private DatabaseManager dbManager;
-
-    // private ArrayList<Product> products; TODO: Remove later
 
     /**
      * Initializer for activity class.
