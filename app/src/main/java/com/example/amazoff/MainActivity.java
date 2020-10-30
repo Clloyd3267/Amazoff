@@ -1,51 +1,65 @@
+/*=============================================================================*
+* Filename    : MainActivity.java
+* Author      : Kyle Bielby, Chris Lloyd, Marc Simone, Wayne Wells
+* Due Date    : 2020/11/06
+* Project     : EE-408 (CU) Final Project (Amazoff Shopping App)
+* Class(s)    : MainActivity
+* Description : Main Activity class which acts as the entry point to this app.
+*=============================================================================*/
+
+// Package Definition
 package com.example.amazoff;
 
+// Imports
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-    private DatabaseManager dataMan;
-    private ArrayList<Product> products;
+/**
+ * Main Activity class which acts as the entry point to this app.
+ */
+public class MainActivity extends AppCompatActivity 
+{
+    /**
+     * A class to access the local database. 
+     */
+    private DatabaseManager dbManager;
 
+    // private ArrayList<Product> products; TODO: Remove later
+
+    /**
+     * Initializer for activity class.
+     * 
+     * @param savedInstanceState Previous state data.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // TODO: Should we even have a MainActivity view?
+        // https://stackoverflow.com/questions/17346102/must-every-activity-have-a-layout
 
-//        this.deleteDatabase(dataMan.getDatabaseName());
-        dataMan = new DatabaseManager(this);    //create new database
+        // Open database controller
+        dbManager = new DatabaseManager(this);
+        // TODO: Delete previous database data here?
 
-        //create bitmap objects for product images
+        // TODO: Move this to a load data function in DatabaseManager?
+        // Convert image resources to Bitmaps
         Bitmap xbox = BitmapFactory.decodeResource(getResources(), R.drawable.xbox_one_s);
         Bitmap playstation = BitmapFactory.decodeResource(getResources(), R.drawable.playstation_5);
         Bitmap gamingComp = BitmapFactory.decodeResource(getResources(), R.drawable.gaming_computer);
 
-        //create Products
-        products = new ArrayList<Product>();
+        // Create and store products to the database
+        dbManager.storeProduct(new Product("xbox","crap",2, 2,5.00, xbox));
+        dbManager.storeProduct(new Product("playstation","junk",2, 3,10.00, playstation));
+        dbManager.storeProduct(new Product("computer","stuff",2, 4,12.00, gamingComp));
 
-        products.add(new Product("xbox","crap",2, 2,5.00, xbox));//, R.drawable.xbox_one_s));
-        products.add(new Product("playstation","junk",2, 3,10.00, playstation));//, (int)R.drawable.playstation_5));
-        products.add(new Product("computer","stuff",2, 4,12.00, gamingComp));//, (int)R.drawable.gaming_computer));
-
-        for(Product prod : products) {
-            dataMan.storeProduct(prod);
-        }
-
-//        dataMan.storeProduct(new Product("xbox","crap",2, 2,5.00, xbox));
-//        dataMan.storeProduct(new Product("playstation","junk",2, 3,10.00, playstation));//, (int)R.drawable.playstation_5));
-//        dataMan.storeProduct(new Product("computer","stuff",2, 4,12.00, gamingComp));
-
-        Intent callBrowseView = new Intent(this, BrowseActivity.class);
-        this.startActivity(callBrowseView);
-
+        // Launch the Browse Activity
+        Intent callBrowseViewActivity = new Intent(this, BrowseActivity.class);
+        this.startActivity(callBrowseViewActivity);
     }
-
-
-
-}
+}  // End of class MainActivity
