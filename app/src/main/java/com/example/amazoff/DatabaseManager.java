@@ -8,6 +8,9 @@
 *               project.
 *=============================================================================*/
 
+// TODO: Add delete function
+// TODO: Add orders table
+
 // Package Definition
 package com.example.amazoff;
 
@@ -110,7 +113,6 @@ public class DatabaseManager extends SQLiteOpenHelper
     private static final String SQL_DELETE_PRODUCTS = "DROP TABLE IF EXISTS " +
                                                       DatabaseContract.Product.TABLE_NAME;
 
-
     /**
      * Default constructor to initialize class and database with. 
      * 
@@ -126,6 +128,7 @@ public class DatabaseManager extends SQLiteOpenHelper
      * 
      * @param db The current SQLite database.
      */
+    @Override
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(SQL_CREATE_PRODUCTS);  // Create products table
@@ -140,6 +143,7 @@ public class DatabaseManager extends SQLiteOpenHelper
      * @param oldVersion The old version of the database. (unused)
      * @param newVersion The current SQLite database. (unused)
      */
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
         db.execSQL(SQL_DELETE_PRODUCTS);  // Remove products table
