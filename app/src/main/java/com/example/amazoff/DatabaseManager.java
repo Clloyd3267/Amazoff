@@ -8,7 +8,6 @@
 *               project.
 *=============================================================================*/
 
-// TODO: Add delete function
 // TODO: Add orders table
 
 // Package Definition
@@ -113,7 +112,7 @@ public class DatabaseManager extends SQLiteOpenHelper
              * The name of the product identifier column.
              */
             private static final String COLUMN_NAME_PRODUCT_ID = "product_id";
-        }  // End of class Product
+        }  // End of class Cart
     }  // End of class DatabaseContract
 
     /**
@@ -316,7 +315,13 @@ public class DatabaseManager extends SQLiteOpenHelper
         return product;
     }
 
-    public long addToCart(int productID) 
+    /**
+     * A function to add a product to the cart.
+     * 
+     * @param productID The id of the product to add.
+     * @return (long): The primary key of the cart item or -1 if an error occurred.
+     */    
+    public long addToCart(int productID)
     {
         // Get the current database with write privileges
         SQLiteDatabase db = this.getWritableDatabase();
@@ -329,6 +334,13 @@ public class DatabaseManager extends SQLiteOpenHelper
         return db.insert(DatabaseContract.Cart.TABLE_NAME, null, values);
     }
 
+    /**
+     * A function to remove a product from the cart.
+     * 
+     * @param productID The id of the product to remove.
+     * @return (long): The number of items removed (should be 1) or -1
+     *                 if an error occurred.
+     */   
     public long removeFromCart(int productID) 
     {
         long returnValue = -1;
@@ -358,7 +370,10 @@ public class DatabaseManager extends SQLiteOpenHelper
 
         return returnValue;
     }
-    
+
+    /**
+     * A function to clear the cart table.
+     */   
     public void clearCart() 
     {
         // Get the current database with write privileges
@@ -371,6 +386,13 @@ public class DatabaseManager extends SQLiteOpenHelper
         db.execSQL(SQL_CREATE_CART);
     }
 
+    /**
+     * A function to return the cart items.
+     * 
+     * @return (Hashtable<Integer, Integer>): A map representing the current
+     *                                        cart with key's being the productID
+     *                                        and values being the quantity.
+     */
     public Hashtable<Integer, Integer> getCartItems()
     {
         // Get the current database with read privileges
