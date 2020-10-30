@@ -194,14 +194,4 @@ public class BrowseActivity extends AppCompatActivity {
 //        this.startActivity(newView);
 //    }
 
-    public byte[] BitMapToByteArray (Bitmap bitmap){
-        ByteArrayOutputStream baos = new  ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, baos);
-        byte [] b = baos.toByteArray();
-//
-        return b;
-    }
-
-
 }
