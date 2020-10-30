@@ -1,11 +1,14 @@
 package com.example.amazoff;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,11 +28,21 @@ public class DetailsActivity extends AppCompatActivity {
 
     private Context thisContext;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bar, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitiy_details);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.new_toolbar);
+        setSupportActionBar(myToolbar);
+
 
         dataMan = new DatabaseManager(this);    //create new database
 
