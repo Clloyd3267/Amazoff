@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity
         dbManager.storeProduct(new Product("iPhone 12", "Hot garbage. Don't waste your money idiot.", 2, 20, 1299.99, iPhone_12));
         dbManager.storeProduct(new Product("Samsung Galaxy S20", "Brand new phone by Samsung.", 4.5, 3, 999.99, samsung_galaxy_s12));
         dbManager.storeProduct(new Product("Samsung Galaxy Watch 3", "Brand new watch by Samsung. Now with better health tracking.", 4.5, 8, 429.99, samsung_galaxy_watch_3));
-        
+
         dbManager.storeProduct(new Product("Time is money and I am wasting my money","stuff",3.5, 4,12.00, gamingComp));
         dbManager.storeProduct(new Product("WHY am I here rn. This is taking way longer","junk",2, 3,10.00, playstation));
         dbManager.storeProduct(new Product("I will never be a web developer or front end designer","stuff",3.5, 4,12.00, gamingComp));
