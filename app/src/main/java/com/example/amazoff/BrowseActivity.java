@@ -1,197 +1,223 @@
+/*=============================================================================*
+* Filename    : BrowseActivity.java
+* Author      : Kyle Bielby, Chris Lloyd, Marc Simone, Wayne Wells
+* Due Date    : 2020/11/06
+* Project     : EE-408 (CU) Final Project (Amazoff Shopping App)
+* Class(s)    : BrowseActivity
+* Description : Browse Activity class to view a list of products.
+*=============================================================================*/
+
+// Package Definition
 package com.example.amazoff;
 
+// Imports
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Binder;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Base64;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class BrowseActivity extends AppCompatActivity {
-    private DatabaseManager dataMan;
-    private ArrayList<Product> products;
-    private Context thisContext;
+/**
+ * Browse Activity class to view a list of products.
+ */
+public class BrowseActivity extends AppCompatActivity 
+{
+    /**
+     * A class to access the local database. 
+     */
+    private DatabaseManager dbManager;
 
+    /**
+     * Initializer for activity class.
+     * 
+     * @param savedInstanceState Previous state data.
+     */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    protected void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_browse); // TODO: Needed?
+
+        // Add toolbar to activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.browse_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
+        
+        // Open database controller
+        dbManager = new DatabaseManager(this);
+
+        // Update layout view
+        updateView();
+    }
+
+    /**
+     * Method to add options menu.
+     * 
+     * @param menu Menu object to add.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) 
+    {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_bar, menu);
         return true;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_browse);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
-        dataMan = new DatabaseManager(this);    //create new database
-
-        Intent parentIntent = getIntent();
-
-        products = dataMan.getProducts();
-
-        thisContext = this;
-
-        updateView();
-    }
-
-    public void updateView () {
-        RelativeLayout thisLayout = findViewById(R.id.mainBrowseLayout);  // create relative layout to hold image views in
-//        Button goToCart = findViewById(R.id.goToCartButton);
-
+    /**
+     * Method to dynamically update view.
+     */
+    public void updateView ()
+    {
+        // Get width and height of display
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
 
-        //create grid layout for products
-        GridLayout productImages = new GridLayout(this);  // store images in grid view
-        ScrollView scrollView = new ScrollView(this);
-        productImages.setRowCount(products.size());
-        productImages.setColumnCount(2);    //TODO change number of columns for number of images
+        // Get products from database
+        ArrayList<Product> products = dbManager.getProducts();
 
-        // store view details buttons
-        ArrayList<Button> productDetails = new ArrayList<>();
+        // Get scrollview from layout
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
 
-        for(Product prod : products) {
-            Button viewDetails = new Button(this);
-            ImageView img = new ImageView(this);  // create new image view to store product image
-            LinearLayout info =  new LinearLayout(this);  // create new linear layout for product info
-            info.setOrientation(LinearLayout.VERTICAL);
+        // Create grid layout for products
+        GridLayout productsGrid = new GridLayout(this);
+        productsGrid.setPadding(15,15,15,15);
+        productsGrid.setRowCount(products.size());
+        productsGrid.setColumnCount(2);
 
-            // Get Product
-            Bitmap bitmp = prod.getImage();  // get Bitmap Object of product image
-            String productName = prod.getName();
-            String productDescription = prod.getDescription();
-            double productPrice = prod.getPrice();
-            int productRating = prod.getRating();
+        // Create view for each product
+        for (Product product : products)
+        {
+            LinearLayout infoLayout =  new LinearLayout(this);
+            LinearLayout ratingLayout =  new LinearLayout(this);
+            ratingLayout.setOrientation(LinearLayout.HORIZONTAL);
+            infoLayout.setOrientation(LinearLayout.VERTICAL);
+            
+            // Create and modify textviews for products
+            // Title
+            TextView nameTextView = new TextView(this);
+            nameTextView.setTextSize(16);
+            nameTextView.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD));
+            nameTextView.setHorizontallyScrolling(false);
+            nameTextView.setSingleLine(false);
+            nameTextView.setEllipsize(TextUtils.TruncateAt.END);
+            nameTextView.setPadding(0,0,50,10);
+            nameTextView.setLines(2);
 
-            // Create Text Views for each product parameter
-            TextView name = new TextView(this);
-            TextView Description = new TextView(this);
-            TextView Price = new TextView(this);
-            TextView Rating = new TextView(this);
+            // Rating bar
+            RatingBar ratingRatingBar = new RatingBar(this, null, android.R.attr.ratingBarStyleSmall);
+            ratingRatingBar.setIsIndicator(true);
+            ratingRatingBar.setNumStars(5);
+            ratingRatingBar.setStepSize(0.5f);
+            ratingRatingBar.setPadding(0,7,0,0);
 
-            // set text views to product parameters
-            name.setText(productName);
-            Description.setText(productDescription);
-            Price.setText(String.valueOf(productPrice));
-            Rating.setText(String.valueOf(productRating));
+            // Number of reviews
+            TextView numReviewsTextView = new TextView(this);
+            numReviewsTextView.setPadding(20,0,0,0);
+            numReviewsTextView.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL));
+            numReviewsTextView.setTextSize(15);
 
-            viewDetails.setText("view details");
+            // Price
+            TextView priceTextView = new TextView(this);
+            DecimalFormat decimalFormat = new DecimalFormat("$#,##0.00");
+            priceTextView.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD));
 
-            ViewButtonHandler newHandler = new ViewButtonHandler(prod);
-            viewDetails.setOnClickListener(newHandler);
+            // Image
+            ImageView imageImageView = new ImageView(this);
 
-            // add text views to linear layout
-            info.addView(name);
-            info.addView(Description);
-            info.addView(Price);
-            info.addView(Rating);
-            info.addView(viewDetails);
+            // Shipping
+            TextView shippingTextView = new TextView(this);
 
-            img.setImageBitmap(bitmp);  // store bitmap of resource in image view
-//            img.setImageResource(prod.getImageID());
+            // Set data to widgets
+            imageImageView.setImageBitmap(product.getImage());
+            nameTextView.setText(product.getName());
+            ratingRatingBar.setRating((float) product.getRating());
+            numReviewsTextView.setText(Integer.toString(product.getNumReviews()));
+            priceTextView.setText(decimalFormat.format(product.getPrice()));
+            shippingTextView.setText("FREE Delivery within two days!");
 
-            productImages.addView(img, width / 2, height / 3 );
-            productImages.addView(info, width / 2, height / 3 );
+            // Create button to go to product details view
+            Button viewDetailsButton = new Button(this);
+            viewDetailsButton.setText("View Details");  // TODO: Remove later and click cell instead
+
+            // Set listener with current product ID
+            ViewButtonHandler newHandler = new ViewButtonHandler(product.getID());
+            viewDetailsButton.setOnClickListener(newHandler);
+
+            // Add widgets to linear layout
+            infoLayout.addView(nameTextView);
+            ratingLayout.addView(ratingRatingBar);
+            ratingLayout.addView(numReviewsTextView);
+            infoLayout.addView(ratingLayout);
+            infoLayout.addView(priceTextView);
+            infoLayout.addView(shippingTextView);
+            infoLayout.addView(viewDetailsButton);
+            productsGrid.setBackgroundColor(Color.WHITE);
+            productsGrid.setPadding(0,30,0,0);
+            productsGrid.addView(imageImageView, width * 2 / 5, height / 4);
+            productsGrid.addView(infoLayout, width * 3 / 5, height / 4);
         }
 
-        scrollView.addView(productImages);
-//        thisLayout.addView(goToCart);
-        thisLayout.addView(scrollView);
-        setContentView(thisLayout);
+        // Add the products to the screen
+        scrollView.addView(productsGrid);
     }
 
-    private class ViewButtonHandler implements View.OnClickListener{
-        public ViewButtonHandler(Product selectedProduct){
-            activeProduct = selectedProduct;
+    /**
+     * Custom handler to handle view details button click.
+     */
+    private class ViewButtonHandler implements View.OnClickListener
+    {
+        /**
+         * The productID this listener is associated with.
+         */
+        private int activeProductID;
+
+        /**
+         * Constructor for this class.
+         *
+         * @param selectedProductID the productID this listener is associated with.
+         */
+        public ViewButtonHandler(int selectedProductID)
+        {
+            activeProductID = selectedProductID;
         }
 
-        public void onClick( View v) {
-//            openDetailsView(v, activeProduct);
-            Intent newView = new Intent(thisContext, DetailsActivity.class);
-            newView.putExtra("Product ID", String.valueOf(activeProduct.getID()));
-            thisContext.startActivity(newView);
-
+        /**
+         * Handler for button press.
+         *
+         * @param v The current view.
+         */
+        public void onClick( View v)
+        {
+            Intent newView = new Intent(BrowseActivity.this, DetailsActivity.class);
+            newView.putExtra("Product ID", String.valueOf(activeProductID));
+            BrowseActivity.this.startActivity(newView);
         }
-
-        private Product activeProduct;
-    }
-
-//    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-//    private void openDetailsView (View v, Product selectedProduct) {
-//        // call details view with item
-////        Intent newView = new Intent(this, DetailsActivity.class);
-//        Intent newView = new Intent(this, DetailsActivity.class);
-//        newView.putExtra("Product Name", selectedProduct.getName());
-//        newView.putExtra("Product Description", selectedProduct.getDescription());
-//        newView.putExtra("Product Price", String.valueOf(selectedProduct.getPrice()));
-//        newView.putExtra("Product Rating", String.valueOf(selectedProduct.getRating()));
-//        newView.putExtra("Product Image", BitMapToString(selectedProduct.getImage()));  // TODO fix so that converts id integer to String
-//        selectedProduct.setImageID(R.drawable.gaming_computer);
-//        newView.putExtra("Product Image", String.valueOf(selectedProduct.getImageID()));
-//        newView.putExtra("Product Image", String.valueOf(R.drawable.gaming_computer));
-//        newView.putExtra("Product Image", selectedProduct.getImage());
-//        newView.putExtra("Product Image", selectedProduct);
-//        newView.putExtra("Product Image", (String)selectedProduct.getImage());
-
-//        Bundle b = new Bundle();
-//        b.putSerializable("serialzable",selectedProduct);
-
-
-//        SentObject newObject = new SentObject(selectedProduct);
-//        newView.putExtra("Product Image", selectedProduct);
-
-//        String xbox = "xbox";
-//        String playstation = "playstation";
-//        String computer = "computer";
-//
-//        if(xbox.equals(selectedProduct.getName())){
-//            newView.putExtra("Product Image", String.valueOf(R.drawable.xbox_one_s));
-//        }
-//        else if(playstation.equals(selectedProduct.getName())){
-//            newView.putExtra("Product Image", String.valueOf(R.drawable.playstation_5) );
-//        }
-//        else if(computer.equals(selectedProduct.getName())){
-//            newView.putExtra("Product Image", String.valueOf(R.drawable.gaming_computer) );
-//        }
-
-
-//        final Bitmap objSent = selectedProduct.getImage();
-//        final Bundle bundle = new Bundle();
-//        bundle.putBinder("object_value", new ObjectWrapperForBinder(objSent));
-////        startActivity(new Intent(this, newView.class).putExtras(bundle));
-//        newView.putExtras(bundle);
-
-//        this.startActivity(newView);
-//    }
-
-}
+    }  // End of class ViewButtonHandler
+}  // End of class BrowseActivity

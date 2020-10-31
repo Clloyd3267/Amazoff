@@ -38,7 +38,7 @@ public class Product
     /**
      * The product rating.
      */
-    private int rating;
+    private double rating;
 
     /**
      * The product number of reviews.
@@ -63,7 +63,7 @@ public class Product
         id = -1;
         name = "";
         description = "";
-        rating = 0;
+        rating = 0.0;
         numReviews = 0;
         price = 0.0;
         image = null;
@@ -79,7 +79,7 @@ public class Product
      * @param price The product price to set.
      * @param image The product image to set.
      */
-    public Product(String name, String description, int rating, int numReviews, double price, Bitmap image) 
+    public Product(String name, String description, double rating, int numReviews, double price, Bitmap image)
     {
         this.id = -1;
         this.name = name;
@@ -153,9 +153,9 @@ public class Product
     /**
      * Getter for product rating.
      * 
-     * @return (int): The rating of this product.
+     * @return (double): The rating of this product.
      */    
-    public int getRating()
+    public double getRating()
     {
         return rating;
     }
@@ -165,7 +165,7 @@ public class Product
      * 
      * @param rating The product rating to set.
      */    
-    public void setRating(int rating)
+    public void setRating(double rating)
     {
         this.rating = rating;
     }

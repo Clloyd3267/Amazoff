@@ -51,9 +51,13 @@ public class MainActivity extends AppCompatActivity
         Bitmap gamingComp = BitmapFactory.decodeResource(getResources(), R.drawable.gaming_computer);
 
         // Create and store products to the database
-        dbManager.storeProduct(new Product("xbox","crap",2, 2,5.00, xbox));
-        dbManager.storeProduct(new Product("playstation","junk",2, 3,10.00, playstation));
-        dbManager.storeProduct(new Product("computer","stuff",2, 4,12.00, gamingComp));
+        dbManager.storeProduct(new Product("XBOX 360 1x plus plus. The best gaming console!","crap",2.5, 2,5.00, xbox));
+        dbManager.storeProduct(new Product("playstation. Why do we need a single playstation?","junk",2, 3,10.00, playstation));
+        dbManager.storeProduct(new Product("Time is money and I am wasting my money","stuff",3.5, 4,12.00, gamingComp));
+        dbManager.storeProduct(new Product("WHY am I here rn. This is taking way longer","junk",2, 3,10.00, playstation));
+        dbManager.storeProduct(new Product("I will never be a web developer or front end designer","stuff",3.5, 4,12.00, gamingComp));
+        dbManager.storeProduct(new Product("This shit is hard. Das a fact!!!!!!","junk",2, 3,10.00, playstation));
+        dbManager.storeProduct(new Product("I can't think of anymore cool titles so: purple Unicorns? ","stuff",3.5, 4,12.00, gamingComp));
 
         // Launch the Browse Activity
         Intent callBrowseViewActivity = new Intent(this, BrowseActivity.class);
