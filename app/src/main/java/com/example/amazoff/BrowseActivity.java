@@ -11,34 +11,25 @@
 package com.example.amazoff;
 
 // Imports
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -61,7 +52,7 @@ public class BrowseActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_browse); // TODO: Needed?
+        setContentView(R.layout.activity_browse);
 
         // Add toolbar to activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.browse_toolbar);
@@ -73,25 +64,12 @@ public class BrowseActivity extends AppCompatActivity
 
         // Update layout view
         updateView();
-    }
-
-    /**
-     * Method to add options menu.
-     * 
-     * @param menu Menu object to add.
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) 
-    {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_bar, menu);
-        return true;
-    }
+    } 
 
     /**
      * Method to dynamically update view.
      */
-    public void updateView ()
+    public void updateView()
     {
         // Get width and height of display
         DisplayMetrics metrics = new DisplayMetrics();
@@ -220,4 +198,37 @@ public class BrowseActivity extends AppCompatActivity
             BrowseActivity.this.startActivity(newView);
         }
     }  // End of class ViewButtonHandler
+
+    /**
+     * Method to add options menu.
+     * 
+     * @param menu Menu object to add.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) 
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bar, menu);
+        return true;
+    }
+
+    /**
+     * Method to go to cart when toolbar button is pressed.
+     * 
+     * @param item The selected menu item.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.go_to_cart:
+                Intent goToCart = new Intent(this, CartActivity.class);
+                this.startActivity(goToCart);
+
+                break;
+            default:
+        }
+        return true;
+    }     
 }  // End of class BrowseActivity

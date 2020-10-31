@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         Bitmap gamingComp = BitmapFactory.decodeResource(getResources(), R.drawable.gaming_computer);
 
         // Create and store products to the database
-        dbManager.storeProduct(new Product("XBOX 360 1x plus plus. The best gaming console!","crap",2.5, 2,5.00, xbox));
+        dbManager.storeProduct(new Product("XBOX 360 1x plus plus. The best gaming console!","A really good piece of junk. Like really, you should buy this. At this price it is a steal or a waste of money, you decide! Or don't, I don't care. No really. Is this more than 4 lines yet? I'm not sure.",2.5, 2,5.00, xbox));
         dbManager.storeProduct(new Product("playstation. Why do we need a single playstation?","junk",2, 3,10.00, playstation));
         dbManager.storeProduct(new Product("Time is money and I am wasting my money","stuff",3.5, 4,12.00, gamingComp));
         dbManager.storeProduct(new Product("WHY am I here rn. This is taking way longer","junk",2, 3,10.00, playstation));

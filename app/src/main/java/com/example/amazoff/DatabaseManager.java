@@ -420,5 +420,4 @@ public class DatabaseManager extends SQLiteOpenHelper
 
         return cart;
     }
-
 }  // End of class DatabaseManager
