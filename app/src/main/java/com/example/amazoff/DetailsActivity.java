@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +33,19 @@ public class DetailsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_favorite:
+                Intent goToCart = new Intent(thisContext, CartActivity.class);
+                thisContext.startActivity(goToCart);
+
+                break;
+            default:
+        }
         return true;
     }
 
@@ -103,9 +117,8 @@ public class DetailsActivity extends AppCompatActivity {
         addItemButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Add to cart model
-                    // TODO remove intent only go to cart button in every view should accomplish this
-                    Intent goToCart = new Intent(thisContext, CartActivity.class);
-                    thisContext.startActivity(goToCart);
+                    dataMan.addToCart(activeProduct.getID());
+
                 }
         });
 
