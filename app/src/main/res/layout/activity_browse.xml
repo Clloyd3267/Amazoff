@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainBrowseLayout"
     android:layout_width="match_parent"
@@ -8,42 +8,17 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
+        android:id="@+id/browse_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/toolbar_background_color"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-
-        />
-
-<!--<Button-->
-<!--    android:id="@+id/goToCartButton"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:padding="16dp"-->
-<!--    android:layout_alignParentTop="true"-->
-<!--    android:layout_alignParentRight="true"-->
-<!--    android:drawableBottom="@mipmap/cart_icon"/>-->
-
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:id="@+id/statusBar"
-    android:textStyle="bold"
-    android:textColor="#000000"
-    android:background="#ffffff"
-    android:textSize="12pt"
-    android:layout_alignParentBottom="true"
-    android:textIsSelectable="false"/>
-
-
-
-
-
-
-
-
-</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
+    </ScrollView>
+</LinearLayout>

@@ -123,7 +123,7 @@ public class DatabaseManager extends SQLiteOpenHelper
             DatabaseContract.Product.COLUMN_NAME_ID + " INTEGER PRIMARY KEY," +
             DatabaseContract.Product.COLUMN_NAME_NAME + " TEXT," +
             DatabaseContract.Product.COLUMN_NAME_DESCRIPTION + " TEXT," +
-            DatabaseContract.Product.COLUMN_NAME_RATING + " INTEGER," +
+            DatabaseContract.Product.COLUMN_NAME_RATING + " REAL," +
             DatabaseContract.Product.COLUMN_NAME_NUM_REVIEWS + " INTEGER," +
             DatabaseContract.Product.COLUMN_NAME_PRICE + " REAL," +
             DatabaseContract.Product.COLUMN_NAME_IMAGE + " BLOB " + ")";
@@ -256,7 +256,7 @@ public class DatabaseManager extends SQLiteOpenHelper
             product.setID(cursor.getInt(0));
             product.setName(cursor.getString(1));
             product.setDescription(cursor.getString(2));
-            product.setRating(cursor.getInt(3));
+            product.setRating(cursor.getDouble(3));
             product.setNumReviews(cursor.getInt(4));
             product.setPrice(cursor.getDouble(5));
             
@@ -300,7 +300,7 @@ public class DatabaseManager extends SQLiteOpenHelper
             product.setID(cursor.getInt(0));
             product.setName(cursor.getString(1));
             product.setDescription(cursor.getString(2));
-            product.setRating(cursor.getInt(3));
+            product.setRating(cursor.getDouble(3));
             product.setNumReviews(cursor.getInt(4));
             product.setPrice(cursor.getDouble(5));
 
