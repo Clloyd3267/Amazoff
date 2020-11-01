@@ -13,7 +13,7 @@ package com.example.amazoff;
 // Imports
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -62,7 +62,7 @@ public class DetailsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activitiy_details);
+        setContentView(R.layout.activity_details);
         
         // Add toolbar to activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.details_toolbar);
@@ -158,9 +158,10 @@ public class DetailsActivity extends AppCompatActivity
          * @param v The current view.
          */   
         @Override
-        public void onClick(View v) {
+        public void onClick(View v) 
+        {
             // Decrease purchased quantity
-            if(productQuantity > 1)
+            if (productQuantity > 1)
             {
                 productQuantityTextView.setText(Integer.toString(--productQuantity));
             }
@@ -213,7 +214,6 @@ public class DetailsActivity extends AppCompatActivity
             case R.id.go_to_cart:
                 Intent goToCart = new Intent(this, CartActivity.class);
                 this.startActivity(goToCart);
-
                 break;
             default:
         }

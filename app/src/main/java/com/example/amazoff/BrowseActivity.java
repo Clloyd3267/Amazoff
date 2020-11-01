@@ -81,7 +81,7 @@ public class BrowseActivity extends AppCompatActivity
         ArrayList<Product> products = dbManager.getProducts();
 
         // Get scrollview from layout
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        ScrollView scrollView = (ScrollView) findViewById(R.id.browse_scroll_view);
 
         // Create grid layout for products
         GridLayout productsGrid = new GridLayout(this);
@@ -191,7 +191,7 @@ public class BrowseActivity extends AppCompatActivity
          *
          * @param v The current view.
          */
-        public void onClick( View v)
+        public void onClick(View v)
         {
             Intent newView = new Intent(BrowseActivity.this, DetailsActivity.class);
             newView.putExtra("Product ID", String.valueOf(activeProductID));
@@ -225,7 +225,6 @@ public class BrowseActivity extends AppCompatActivity
             case R.id.go_to_cart:
                 Intent goToCart = new Intent(this, CartActivity.class);
                 this.startActivity(goToCart);
-
                 break;
             default:
         }
