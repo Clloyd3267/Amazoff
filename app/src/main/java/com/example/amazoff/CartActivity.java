@@ -97,7 +97,11 @@ public class CartActivity extends AppCompatActivity
         productsGrid.setBackgroundColor(Color.WHITE);
 
         updateSubtotal();
-        
+
+        // Get button to go to Checkout
+        Button checkoutButton = (Button) findViewById(R.id.checkout_button);
+        checkoutButton.setOnClickListener(new CheckoutButtonHandler());
+
         for (Integer productID : productIDs) 
         {
             // Set local data
@@ -161,14 +165,9 @@ public class CartActivity extends AppCompatActivity
             Button viewDetailsButton = new Button(this);
             viewDetailsButton.setText("View Details");  // TODO: Remove later and click cell instead
 
-            
             // Set listener with current product ID
             ViewButtonHandler newHandler = new ViewButtonHandler(productID);
             viewDetailsButton.setOnClickListener(newHandler);
-            
-            // Get button to go to Checkout
-            Button checkoutButton = (Button) findViewById(R.id.checkout_button);
-            checkoutButton.setOnClickListener(new CheckoutButtonHandler());
 
             // Add widgets to linear layout
             infoLayout.addView(nameTextView);
@@ -366,8 +365,11 @@ public class CartActivity extends AppCompatActivity
          */
         public void onClick(View v)
         {
-            Intent checkoutIntent = new Intent(CartActivity.this, CheckoutActivity.class);
-            CartActivity.this.startActivity(checkoutIntent);
+            if (!dbManager.getCartItems().isEmpty())
+            {
+                Intent checkoutIntent = new Intent(CartActivity.this, CheckoutActivity.class);
+                CartActivity.this.startActivity(checkoutIntent);
+            }
         }
     }  // End of class CheckoutButtonHandler    
 
