@@ -47,12 +47,23 @@ public class MainActivity extends AppCompatActivity
         // TODO: Move this to a load data function in DatabaseManager?
         // Convert image resources to Bitmaps
         Bitmap xbox = BitmapFactory.decodeResource(getResources(), R.drawable.xbox_one_s);
+        Bitmap nintendo_switch = BitmapFactory.decodeResource(getResources(), R.drawable.nintendo_switch);
+//        Bitmap macbook_pro = BitmapFactory.decodeResource(getResources(), R.drawable.macbook_pro); // This crashes the app :D
+        Bitmap iPhone_12 = BitmapFactory.decodeResource(getResources(), R.drawable.iphone_12);
+        Bitmap samsung_galaxy_s12 = BitmapFactory.decodeResource(getResources(), R.drawable.samsung_galaxy_s20);
+        Bitmap samsung_galaxy_watch_3 = BitmapFactory.decodeResource(getResources(), R.drawable.samsung_galaxy_watch_3);
         Bitmap playstation = BitmapFactory.decodeResource(getResources(), R.drawable.playstation_5);
         Bitmap gamingComp = BitmapFactory.decodeResource(getResources(), R.drawable.gaming_computer);
 
         // Create and store products to the database
         dbManager.storeProduct(new Product("XBOX 360 1x plus plus. The best gaming console!","A really good piece of junk. Like really, you should buy this. At this price it is a steal or a waste of money, you decide! Or don't, I don't care. No really. Is this more than 4 lines yet? I'm not sure.",2.5, 2,5.00, xbox));
         dbManager.storeProduct(new Product("playstation. Why do we need a single playstation?","junk",2, 3,10.00, playstation));
+        dbManager.storeProduct(new Product("Nintendo Switch", "This is a product by nintendo.", 4.5, 10, 299.99, nintendo_switch));
+//        dbManager.storeProduct(new Product("MacBook Pro", "Underpowered, cool looking, way overpriced. Thanks Apple.", 1.5, 5, 1499.99, macbook_pro));
+        dbManager.storeProduct(new Product("iPhone 12", "Hot garbage. Don't waste your money idiot.", 2, 20, 1299.99, iPhone_12));
+        dbManager.storeProduct(new Product("Samsung Galaxy S20", "Brand new phone by Samsung.", 4.5, 3, 999.99, samsung_galaxy_s12));
+        dbManager.storeProduct(new Product("Samsung Galaxy Watch 3", "Brand new watch by Samsung. Now with better health tracking.", 4.5, 8, 429.99, samsung_galaxy_watch_3));
+
         dbManager.storeProduct(new Product("Time is money and I am wasting my money","stuff",3.5, 4,12.00, gamingComp));
         dbManager.storeProduct(new Product("WHY am I here rn. This is taking way longer","junk",2, 3,10.00, playstation));
         dbManager.storeProduct(new Product("I will never be a web developer or front end designer","stuff",3.5, 4,12.00, gamingComp));
