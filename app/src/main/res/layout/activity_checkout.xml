@@ -70,7 +70,8 @@
                 <EditText
                     android:id="@+id/phone_number_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"/>
 
                 <!-- Email Address -->
                 <TextView
@@ -80,7 +81,8 @@
                 <EditText
                     android:id="@+id/email_address_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"/>
 
                 <!-- Address -->
                 <TextView
@@ -121,7 +123,8 @@
                     android:id="@+id/zip_code_text"
                     android:layout_width="match_parent"
                     android:maxLength="5"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
 
                 <!-- Country -->
                 <TextView
@@ -191,7 +194,8 @@
                 <EditText
                     android:id="@+id/card_number_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
 
                 <!-- Expiration Date -->
                 <TextView
@@ -202,7 +206,8 @@
                     android:id="@+id/expiration_date_text"
                     android:layout_width="match_parent"
                     android:maxLength="5"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="date"/>
 
                 <!-- Security Code -->
                 <TextView
@@ -213,7 +218,8 @@
                     android:id="@+id/security_code_text"
                     android:layout_width="match_parent"
                     android:maxLength="3"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
 
                 <Button
                     android:id="@+id/place_order_button"
