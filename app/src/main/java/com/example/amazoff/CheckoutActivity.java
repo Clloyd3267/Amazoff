@@ -218,11 +218,12 @@ public class CheckoutActivity extends AppCompatActivity
             if( id == -1 ) /* YES button */ {
                 // Go to Browse page
             Intent browseIntent = new Intent(CheckoutActivity.this, BrowseActivity.class);
+            finishAffinity();
             CheckoutActivity.this.startActivity(browseIntent);
 //                CheckoutActivity.this.finish();
             }
             else if( id == -2 ) // NO button
-                CheckoutActivity.this.finish( );    // TODO may need to eventually change this
+                dialog.dismiss();
         }
     }
 
