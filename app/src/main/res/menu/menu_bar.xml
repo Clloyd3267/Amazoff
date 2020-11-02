@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
         <item
             android:id="@+id/go_to_cart"
-            android:icon="@mipmap/cart_icon"
+            android:icon="@mipmap/cart_icon_orange"
             app:showAsAction="ifRoom"
             android:title="@string/cart_menu_item_text" />
 </menu>
+
+    <!-- cart icon with white background: android:icon="@mipmap/cart_icon"-->
