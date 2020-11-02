@@ -19,6 +19,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Hashtable;
 
@@ -27,6 +30,20 @@ import java.util.Hashtable;
  */
 public class CheckoutActivity extends AppCompatActivity
 {
+    // Get order data widgets
+    private EditText firstNameEditText;
+    private EditText lastNameEditText;
+    private EditText phoneNumberEditText;
+    private EditText emailEditText;
+    private EditText addressEditText;
+    private EditText cityEditText;
+    private EditText stateEditText;
+    private EditText zipCodeEditText;
+    private EditText countryEditText;
+    private EditText cardNumberEditText;
+    private EditText expirationDateEditText;
+    private EditText securityCodeEditText;
+
     /**
      * A class to access the local database.
      */
@@ -54,6 +71,20 @@ public class CheckoutActivity extends AppCompatActivity
         // Add place order button handler
         Button placeOrderButton = findViewById(R.id.place_order_button);
         placeOrderButton.setOnClickListener(new CheckoutButtonHandler());
+
+        // Get order data widgets
+        firstNameEditText = (EditText) findViewById(R.id.first_name_text);
+        lastNameEditText = (EditText) findViewById(R.id.last_name_text);
+        phoneNumberEditText = (EditText) findViewById(R.id.phone_number_text);
+        emailEditText = (EditText) findViewById(R.id.email_address_text);
+        addressEditText = (EditText) findViewById(R.id.address_text);
+        cityEditText = (EditText) findViewById(R.id.city_text);
+        stateEditText = (EditText) findViewById(R.id.state_text);
+        zipCodeEditText = (EditText) findViewById(R.id.zip_code_text);
+        countryEditText = (EditText) findViewById(R.id.country_text);
+        cardNumberEditText = (EditText) findViewById(R.id.card_number_text);
+        expirationDateEditText = (EditText) findViewById(R.id.expiration_date_text);
+        securityCodeEditText = (EditText) findViewById(R.id.security_code_text);
     }
 
     /**
@@ -71,18 +102,18 @@ public class CheckoutActivity extends AppCompatActivity
             // TODO: Add error checking and store order to database
 
             // Get order data widgets
-            EditText firstNameEditText = (EditText) findViewById(R.id.first_name_text);
-            EditText lastNameEditText = (EditText) findViewById(R.id.last_name_text);
-            EditText phoneNumberEditText = (EditText) findViewById(R.id.phone_number_text);
-            EditText emailEditText = (EditText) findViewById(R.id.email_address_text);
-            EditText addressEditText = (EditText) findViewById(R.id.address_text);
-            EditText cityEditText = (EditText) findViewById(R.id.city_text);
-            EditText stateEditText = (EditText) findViewById(R.id.state_text);
-            EditText zipCodeEditText = (EditText) findViewById(R.id.zip_code_text);
-            EditText countryEditText = (EditText) findViewById(R.id.country_text);
-            EditText cardNumberEditText = (EditText) findViewById(R.id.card_number_text);
-            EditText expirationDateEditText = (EditText) findViewById(R.id.expiration_date_text);
-            EditText securityCodeEditText = (EditText) findViewById(R.id.security_code_text);
+//            EditText firstNameEditText = (EditText) findViewById(R.id.first_name_text);
+//            EditText lastNameEditText = (EditText) findViewById(R.id.last_name_text);
+//            EditText phoneNumberEditText = (EditText) findViewById(R.id.phone_number_text);
+//            EditText emailEditText = (EditText) findViewById(R.id.email_address_text);
+//            EditText addressEditText = (EditText) findViewById(R.id.address_text);
+//            EditText cityEditText = (EditText) findViewById(R.id.city_text);
+//            EditText stateEditText = (EditText) findViewById(R.id.state_text);
+//            EditText zipCodeEditText = (EditText) findViewById(R.id.zip_code_text);
+//            EditText countryEditText = (EditText) findViewById(R.id.country_text);
+//            EditText cardNumberEditText = (EditText) findViewById(R.id.card_number_text);
+//            EditText expirationDateEditText = (EditText) findViewById(R.id.expiration_date_text);
+//            EditText securityCodeEditText = (EditText) findViewById(R.id.security_code_text);
 
             // Get order data
             String firstName = firstNameEditText.getText().toString();
