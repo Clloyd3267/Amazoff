@@ -36,29 +36,29 @@ import java.util.Set;
 /**
  * Cart Activity class to show a the current cart.
  */
-public class CartActivity extends AppCompatActivity 
+public class CartActivity extends AppCompatActivity
 {
     /**
-     * A class to access the local database. 
+     * A class to access the local database.
      */
     private DatabaseManager dbManager;
 
     /**
      * Initializer for activity class.
-     * 
+     *
      * @param savedInstanceState Previous state data.
-     */    
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) 
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        
+
         // Add toolbar to activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.cart_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
-        
+
         // Open database controller
         dbManager = new DatabaseManager(this);
 
@@ -76,7 +76,7 @@ public class CartActivity extends AppCompatActivity
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
-        
+
         // Get productIDs in cart
         Hashtable<Integer, Integer> cartProducts = dbManager.getCartItems();
 
@@ -85,7 +85,7 @@ public class CartActivity extends AppCompatActivity
 
         // Get scrollview from layout
         ScrollView scrollView = (ScrollView) findViewById(R.id.cart_scroll_view);
-        
+
         // Remove old child views if needed
         scrollView.removeAllViewsInLayout();
 
@@ -97,8 +97,12 @@ public class CartActivity extends AppCompatActivity
         productsGrid.setBackgroundColor(Color.WHITE);
 
         updateSubtotal();
-        
-        for (Integer productID : productIDs) 
+
+        // Get button to go to Checkout
+        Button checkoutButton = (Button) findViewById(R.id.checkout_button);
+        checkoutButton.setOnClickListener(new CheckoutButtonHandler());
+
+        for (Integer productID : productIDs)
         {
             // Set local data
             Product product = dbManager.getProductByID(productID);
@@ -106,7 +110,7 @@ public class CartActivity extends AppCompatActivity
 
             LinearLayout infoLayout =  new LinearLayout(this);
             infoLayout.setOrientation(LinearLayout.VERTICAL);
-            
+
             // Create and modify textviews for products
             // Title
             TextView nameTextView = new TextView(this);
@@ -161,14 +165,9 @@ public class CartActivity extends AppCompatActivity
             Button viewDetailsButton = new Button(this);
             viewDetailsButton.setText("View Details");  // TODO: Remove later and click cell instead
 
-            
             // Set listener with current product ID
             ViewButtonHandler newHandler = new ViewButtonHandler(productID);
             viewDetailsButton.setOnClickListener(newHandler);
-            
-            // Get button to go to Checkout
-            Button checkoutButton = (Button) findViewById(R.id.checkout_button);
-            checkoutButton.setOnClickListener(new CheckoutButtonHandler());
 
             // Add widgets to linear layout
             infoLayout.addView(nameTextView);
@@ -183,25 +182,28 @@ public class CartActivity extends AppCompatActivity
             productsGrid.setBackgroundColor(Color.WHITE);
             productsGrid.setPadding(0,30,0,0);
             productsGrid.addView(imageImageView, width * 2 / 5, height / 4);
-            productsGrid.addView(infoLayout, width * 3 / 5, height / 4);            
+            productsGrid.addView(infoLayout, width * 3 / 5, height / 4);
         }
 
         // Add the products to the screen
         scrollView.addView(productsGrid);
     }
 
+    /**
+     * A method to update the total price/quantity views.
+     */
     private void updateSubtotal()
     {
         // Get productIDs in cart
         Hashtable<Integer, Integer> cartProducts = dbManager.getCartItems();
-        
+
         // Get set of productIDs in cart
         Set<Integer> productIDs = cartProducts.keySet();
 
         // Calculate total quantity and total price
         double subtotal = 0;
         int totalQuantity = 0;
-        for (Integer productID : productIDs) 
+        for (Integer productID : productIDs)
         {
             Product product = dbManager.getProductByID(productID);
             int productQuantity = cartProducts.get(productID);
@@ -222,7 +224,7 @@ public class CartActivity extends AppCompatActivity
         // Set the taxes and shipping
         TextView taxesTextView = (TextView) findViewById(R.id.tax_shipping_price);
         double taxes = (subtotal * 0.04);
-        taxesTextView.setText(decimalFormat.format(taxes));    
+        taxesTextView.setText(decimalFormat.format(taxes));
 
         // Set the order total
         TextView totalPriceTextView = (TextView) findViewById(R.id.total_price);
@@ -256,14 +258,14 @@ public class CartActivity extends AppCompatActivity
             this.quantityTextView = quantityTextView;
             this.productID = productID;
         }
-        
+
         /**
          * Handler for button press.
          *
          * @param v The current view.
-         */   
+         */
         @Override
-        public void onClick(View v) 
+        public void onClick(View v)
         {
             int quantity = Integer.parseInt(quantityTextView.getText().toString());
             Button button = (Button) v;
@@ -288,7 +290,7 @@ public class CartActivity extends AppCompatActivity
         }
     }  // End of class addMinusButtonOnClickListener
 
-    private class DeleteButtonOnClickListener implements View.OnClickListener 
+    private class DeleteButtonOnClickListener implements View.OnClickListener
     {
         /**
          * The current ProductID.
@@ -298,7 +300,7 @@ public class CartActivity extends AppCompatActivity
         /**
          * Constructor for this class.
          *
-         * @param productID the productID this listener is associated with. 
+         * @param productID the productID this listener is associated with.
          */
         DeleteButtonOnClickListener(int productID)
         {
@@ -309,9 +311,9 @@ public class CartActivity extends AppCompatActivity
          * Handler for button press.
          *
          * @param v The current view.
-         */  
+         */
         @Override
-        public void onClick(View v) 
+        public void onClick(View v)
         {
             // delete product from grid view of selected ID
             while (dbManager.removeFromCart(productID) != -1) {}
@@ -366,14 +368,17 @@ public class CartActivity extends AppCompatActivity
          */
         public void onClick(View v)
         {
-            Intent checkoutIntent = new Intent(CartActivity.this, CheckoutActivity.class);
-            CartActivity.this.startActivity(checkoutIntent);
+            if (!dbManager.getCartItems().isEmpty())
+            {
+                Intent checkoutIntent = new Intent(CartActivity.this, CheckoutActivity.class);
+                CartActivity.this.startActivity(checkoutIntent);
+            }
         }
-    }  // End of class CheckoutButtonHandler    
+    }  // End of class CheckoutButtonHandler
 
     /**
      * Method to add options menu.
-     * 
+     *
      * @param menu Menu object to add.
      */
     @Override
