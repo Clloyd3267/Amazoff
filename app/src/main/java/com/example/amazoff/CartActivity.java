@@ -38,6 +38,7 @@ import java.util.Set;
  */
 public class CartActivity extends AppCompatActivity
 {
+    private double orderTotal;
     /**
      * A class to access the local database.
      */
@@ -162,12 +163,12 @@ public class CartActivity extends AppCompatActivity
             deleteButton.setText("Delete");
 
             // Create button to go to product details view
-            Button viewDetailsButton = new Button(this);
-            viewDetailsButton.setText("View Details");  // TODO: Remove later and click cell instead
-
-            // Set listener with current product ID
-            ViewButtonHandler newHandler = new ViewButtonHandler(productID);
-            viewDetailsButton.setOnClickListener(newHandler);
+//            Button viewDetailsButton = new Button(this);
+//            viewDetailsButton.setText("View Details");  // TODO: Remove later and click cell instead
+//
+//            // Set listener with current product ID
+//            ViewButtonHandler newHandler = new ViewButtonHandler(productID);
+//            viewDetailsButton.setOnClickListener(newHandler);
 
             // Add widgets to linear layout
             infoLayout.addView(nameTextView);
@@ -178,7 +179,12 @@ public class CartActivity extends AppCompatActivity
             quantityLayout.addView(incrementQuantityButton);
             quantityLayout.addView(deleteButton);
             infoLayout.addView(quantityLayout);
-            infoLayout.addView(viewDetailsButton);
+//            infoLayout.addView(viewDetailsButton);
+
+            // Set on click listeners for products
+            imageImageView.setOnClickListener(new ViewButtonHandler(productID));
+            infoLayout.setOnClickListener(new ViewButtonHandler(productID));
+
             productsGrid.setBackgroundColor(Color.WHITE);
             productsGrid.setPadding(0,30,0,0);
             productsGrid.addView(imageImageView, width * 2 / 5, height / 4);
@@ -228,7 +234,7 @@ public class CartActivity extends AppCompatActivity
 
         // Set the order total
         TextView totalPriceTextView = (TextView) findViewById(R.id.total_price);
-        double orderTotal = (subtotal + taxes);
+        orderTotal = (subtotal + taxes);
         totalPriceTextView.setText(decimalFormat.format(orderTotal));
     }
 
@@ -371,6 +377,7 @@ public class CartActivity extends AppCompatActivity
             if (!dbManager.getCartItems().isEmpty())
             {
                 Intent checkoutIntent = new Intent(CartActivity.this, CheckoutActivity.class);
+                checkoutIntent.putExtra("Order Total", String.valueOf(orderTotal));
                 CartActivity.this.startActivity(checkoutIntent);
             }
         }

@@ -141,12 +141,12 @@ public class BrowseActivity extends AppCompatActivity
             shippingTextView.setText("FREE Delivery within two days!");
 
             // Create button to go to product details view
-            Button viewDetailsButton = new Button(this);
-            viewDetailsButton.setText("View Details");  // TODO: Remove later and click cell instead
-
-            // Set listener with current product ID
-            ViewButtonHandler newHandler = new ViewButtonHandler(product.getID());
-            viewDetailsButton.setOnClickListener(newHandler);
+//            Button viewDetailsButton = new Button(this);
+//            viewDetailsButton.setText("View Details");  // TODO: Remove later and click cell instead
+//
+//            // Set listener with current product ID
+//            ViewButtonHandler newHandler = new ViewButtonHandler(product.getID());
+//            viewDetailsButton.setOnClickListener(newHandler);
 
             // Add widgets to linear layout
             infoLayout.addView(nameTextView);
@@ -155,7 +155,12 @@ public class BrowseActivity extends AppCompatActivity
             infoLayout.addView(ratingLayout);
             infoLayout.addView(priceTextView);
             infoLayout.addView(shippingTextView);
-            infoLayout.addView(viewDetailsButton);
+//            infoLayout.addView(viewDetailsButton);
+
+            // Set on click listeners for products
+            imageImageView.setOnClickListener(new ViewButtonHandler(product.getID()));
+            infoLayout.setOnClickListener(new ViewButtonHandler(product.getID()));
+
             productsGrid.setBackgroundColor(Color.WHITE);
             productsGrid.setPadding(0,30,0,0);
             productsGrid.addView(imageImageView, width * 2 / 5, height / 4);
