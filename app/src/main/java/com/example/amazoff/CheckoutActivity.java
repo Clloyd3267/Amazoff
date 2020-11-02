@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -216,9 +217,9 @@ public class CheckoutActivity extends AppCompatActivity
         public void onClick( DialogInterface dialog, int id ) {
             if( id == -1 ) /* YES button */ {
                 // Go to Browse page
-//            Intent browseIntent = new Intent(CheckoutActivity.this, BrowseActivity.class);
-//            CheckoutActivity.this.startActivity(browseIntent);
-                CheckoutActivity.this.finish();
+            Intent browseIntent = new Intent(CheckoutActivity.this, BrowseActivity.class);
+            CheckoutActivity.this.startActivity(browseIntent);
+//                CheckoutActivity.this.finish();
             }
             else if( id == -2 ) // NO button
                 CheckoutActivity.this.finish( );    // TODO may need to eventually change this
