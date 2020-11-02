@@ -14,18 +14,13 @@ package com.example.amazoff;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
+import java.text.DecimalFormat;
 import java.util.Hashtable;
 
 /**
@@ -47,19 +42,8 @@ public class CheckoutActivity extends AppCompatActivity
     private EditText expirationDateEditText;
     private EditText securityCodeEditText;
 
-    // Is empty check variables TODO may remove these
-    private boolean firstNameEditTextEmpty;
-    private boolean lastNameEditTextEmpty;
-    private boolean phoneNumberEditTextEmpty;
-    private boolean emailEditTextEmpty;
-    private boolean addressEditTextEmpty;
-    private boolean cityEditTextEmpty;
-    private boolean stateEditTextEmpty;
-    private boolean zipCodeEditTextEmpty;
-    private boolean countryEditTextEmpty;
-    private boolean cardNumberEditTextEmpty;
-    private boolean expirationDateEditTextEmpty;
-    private boolean securityCodeEditTextEmpty;
+    // Order total from cart
+    private double orderTotal;
 
     /**
      * A class to access the local database.
@@ -88,6 +72,9 @@ public class CheckoutActivity extends AppCompatActivity
         // Add place order button handler
         Button placeOrderButton = findViewById(R.id.place_order_button);
         placeOrderButton.setOnClickListener(new CheckoutButtonHandler());
+
+        // Get passed order total
+        orderTotal = Double.parseDouble(getIntent().getStringExtra("Order Total"));
 
         // Get order data widgets
         firstNameEditText = (EditText) findViewById(R.id.first_name_text);
@@ -165,7 +152,8 @@ public class CheckoutActivity extends AppCompatActivity
 
                 // Submit order
                 dbManager.processOrder(order);
-                showOrderConfirmationDialog("Ordering Test");
+                DecimalFormat decimalFormat = new DecimalFormat("$#,##0.00");
+                showOrderConfirmationDialog("Order Total: " + decimalFormat.format(orderTotal));
             }
             else {
                 displayErrorDialog();
