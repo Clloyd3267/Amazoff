@@ -57,17 +57,17 @@ public class MainActivity extends AppCompatActivity
         // Create and store products to the database
         dbManager.storeProduct(new Product("XBox One","The newest game system from Microsoft.",2.5, 147,199.99, xbox));
         dbManager.storeProduct(new Product("Playstation 4","Sony's newest game system.",3, 246,249.99, playstation));
-        dbManager.storeProduct(new Product("Nintendo Switch", "This is a product by nintendo.", 4.5, 10, 299.99, nintendo_switch));
-        dbManager.storeProduct(new Product("iPhone 12", "Hot garbage. Don't waste your money idiot.", 2, 20, 1299.99, iPhone_12));
+        dbManager.storeProduct(new Product("Nintendo Switch", "This is a product by Nintendo.", 4.5, 10, 299.99, nintendo_switch));
+        dbManager.storeProduct(new Product("iPhone 12", "The newest Apple phone.", 2, 20, 1299.99, iPhone_12));
         dbManager.storeProduct(new Product("Samsung Galaxy S20", "Brand new phone by Samsung.", 4.5, 3, 999.99, samsung_galaxy_s12));
         dbManager.storeProduct(new Product("Samsung Galaxy Watch 3", "Brand new watch by Samsung. Now with better health tracking.", 4.5, 8, 429.99, samsung_galaxy_watch_3));
         dbManager.storeProduct(new Product("Gaming PC", "Powerful PC, perfect for gaming, school, and work.", 4.5, 25, 1299.99, gaming_computer));
         dbManager.storeProduct(new Product("Apple Airpods", "Wireless version of Apple's horrible headphone design.", 2.5, 345, 149.99, apple_airpods));
         dbManager.storeProduct(new Product("Apple Airpod Pros", "Slightly more comfortable wireless headphones by Apple.", 4, 134, 249.99, airpod_pros));
         dbManager.storeProduct(new Product("Bose Home 300", "Wireless speaker for your home.", 4, 13, 89.99, bose_home_300));
-        dbManager.storeProduct(new Product("Epi Pen", "This will save your life but kill your wallet", 3.5, 10, 699.99, epiPen));
+        dbManager.storeProduct(new Product("Epi Pen", "This will save your life but may kill your wallet.", 3.5, 10, 699.99, epiPen));
 
-        // Launch the Browse Activity
+        // Launch the Browse Activity and remove this activity
         Intent callBrowseViewActivity = new Intent(this, BrowseActivity.class);
         finish();
         this.startActivity(callBrowseViewActivity);
