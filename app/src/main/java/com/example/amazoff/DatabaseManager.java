@@ -8,8 +8,6 @@
 *               project.
 *=============================================================================*/
 
-// TODO: Add orders table
-
 // Package Definition
 package com.example.amazoff;
 

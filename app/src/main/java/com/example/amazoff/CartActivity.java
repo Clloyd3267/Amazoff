@@ -162,14 +162,6 @@ public class CartActivity extends AppCompatActivity
             decrementQuantityButton.setText("-");
             deleteButton.setText("Delete");
 
-            // Create button to go to product details view
-//            Button viewDetailsButton = new Button(this);
-//            viewDetailsButton.setText("View Details");  // TODO: Remove later and click cell instead
-//
-//            // Set listener with current product ID
-//            ViewButtonHandler newHandler = new ViewButtonHandler(productID);
-//            viewDetailsButton.setOnClickListener(newHandler);
-
             // Add widgets to linear layout
             infoLayout.addView(nameTextView);
             infoLayout.addView(priceTextView);
@@ -179,7 +171,6 @@ public class CartActivity extends AppCompatActivity
             quantityLayout.addView(incrementQuantityButton);
             quantityLayout.addView(deleteButton);
             infoLayout.addView(quantityLayout);
-//            infoLayout.addView(viewDetailsButton);
 
             // Set on click listeners for products
             imageImageView.setOnClickListener(new ViewButtonHandler(productID));

@@ -13,7 +13,6 @@ package com.example.amazoff;
 // Imports
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -178,7 +177,7 @@ public class DetailsActivity extends AppCompatActivity
          *
          * @param v The current view.
          */
-        public void onClick( View v)
+        public void onClick(View v)
         {
             // Add to cart model
             for (int i = 0; i < productQuantity; i++)

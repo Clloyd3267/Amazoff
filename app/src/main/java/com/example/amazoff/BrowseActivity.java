@@ -23,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -140,14 +139,6 @@ public class BrowseActivity extends AppCompatActivity
             priceTextView.setText(decimalFormat.format(product.getPrice()));
             shippingTextView.setText("FREE Delivery within two days!");
 
-            // Create button to go to product details view
-//            Button viewDetailsButton = new Button(this);
-//            viewDetailsButton.setText("View Details");  // TODO: Remove later and click cell instead
-//
-//            // Set listener with current product ID
-//            ViewButtonHandler newHandler = new ViewButtonHandler(product.getID());
-//            viewDetailsButton.setOnClickListener(newHandler);
-
             // Add widgets to linear layout
             infoLayout.addView(nameTextView);
             ratingLayout.addView(ratingRatingBar);
@@ -155,7 +146,6 @@ public class BrowseActivity extends AppCompatActivity
             infoLayout.addView(ratingLayout);
             infoLayout.addView(priceTextView);
             infoLayout.addView(shippingTextView);
-//            infoLayout.addView(viewDetailsButton);
 
             // Set on click listeners for products
             imageImageView.setOnClickListener(new ViewButtonHandler(product.getID()));

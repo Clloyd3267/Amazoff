@@ -29,27 +29,76 @@ import java.util.Hashtable;
  */
 public class CheckoutActivity extends AppCompatActivity
 {
-    // Get order data widgets
-    private EditText firstNameEditText;
-    private EditText lastNameEditText;
-    private EditText phoneNumberEditText;
-    private EditText emailEditText;
-    private EditText addressEditText;
-    private EditText cityEditText;
-    private EditText stateEditText;
-    private EditText zipCodeEditText;
-    private EditText countryEditText;
-    private EditText cardNumberEditText;
-    private EditText expirationDateEditText;
-    private EditText securityCodeEditText;
 
-    // Order total from cart
+    /**
+     * Order total from Cart activity.
+     */
     private double orderTotal;
 
     /**
      * A class to access the local database.
      */
     private DatabaseManager dbManager;
+
+    /**
+     * A reference to the first name EditText widget.
+     */
+    private EditText firstNameEditText;
+
+    /**
+     * A reference to the last name EditText widget.
+     */
+    private EditText lastNameEditText;
+
+    /**
+     * A reference to the phone number EditText widget.
+     */
+    private EditText phoneNumberEditText;
+
+    /**
+     * A reference to the email EditText widget.
+     */
+    private EditText emailEditText;
+
+    /**
+     * A reference to the address EditText widget.
+     */
+    private EditText addressEditText;
+
+    /**
+     * A reference to the city EditText widget.
+     */
+    private EditText cityEditText;
+
+    /**
+     * A reference to the state EditText widget.
+     */
+    private EditText stateEditText;
+
+    /**
+     * A reference to the zip code EditText widget.
+     */
+    private EditText zipCodeEditText;
+
+    /**
+     * A reference to the country EditText widget.
+     */
+    private EditText countryEditText;
+
+    /**
+     * A reference to the card number EditText widget.
+     */
+    private EditText cardNumberEditText;
+
+    /**
+     * A reference to the expiration date EditText widget.
+     */
+    private EditText expirationDateEditText;
+
+    /**
+     * A reference to the security code EditText widget.
+     */
+    private EditText securityCodeEditText;
 
     /**
      * Initializer for activity class.
@@ -104,7 +153,7 @@ public class CheckoutActivity extends AppCompatActivity
          */
         public void onClick(View v)
         {
-            // TODO: Add error checking and store order to database
+            // Ensure all fields are not empty
             boolean emptyInput = firstNameEditText.getText().toString().isEmpty() |
                     lastNameEditText.getText().toString().isEmpty() |
                     phoneNumberEditText.getText().toString().isEmpty() |
@@ -118,7 +167,8 @@ public class CheckoutActivity extends AppCompatActivity
                     expirationDateEditText.getText().toString().isEmpty() |
                     securityCodeEditText.getText().toString().isEmpty();
 
-            if(!emptyInput) {
+            if (!emptyInput)
+            {
                 // Get order data
                 String firstName = firstNameEditText.getText().toString();
                 String lastName = lastNameEditText.getText().toString();
@@ -138,119 +188,87 @@ public class CheckoutActivity extends AppCompatActivity
 
                 // Create new order
                 Order order = new Order(firstName,
-                        lastName,
-                        phoneNumber,
-                        email,
-                        address,
-                        city,
-                        state,
-                        zipCode,
-                        country,
-                        cardNumber,
-                        expirationDate,
-                        securityCode,
-                        cartItems);
+                                        lastName,
+                                        phoneNumber,
+                                        email,
+                                        address,
+                                        city,
+                                        state,
+                                        zipCode,
+                                        country,
+                                        cardNumber,
+                                        expirationDate,
+                                        securityCode,
+                                        cartItems);
 
                 // Submit order
                 dbManager.processOrder(order);
                 DecimalFormat decimalFormat = new DecimalFormat("$#,##0.00");
                 showOrderConfirmationDialog("Order Total: " + decimalFormat.format(orderTotal));
             }
-            else {
+            else
+            {
                 displayErrorDialog();
             }
-
-            // Get order data widgets
-//            EditText firstNameEditText = (EditText) findViewById(R.id.first_name_text);
-//            EditText lastNameEditText = (EditText) findViewById(R.id.last_name_text);
-//            EditText phoneNumberEditText = (EditText) findViewById(R.id.phone_number_text);
-//            EditText emailEditText = (EditText) findViewById(R.id.email_address_text);
-//            EditText addressEditText = (EditText) findViewById(R.id.address_text);
-//            EditText cityEditText = (EditText) findViewById(R.id.city_text);
-//            EditText stateEditText = (EditText) findViewById(R.id.state_text);
-//            EditText zipCodeEditText = (EditText) findViewById(R.id.zip_code_text);
-//            EditText countryEditText = (EditText) findViewById(R.id.country_text);
-//            EditText cardNumberEditText = (EditText) findViewById(R.id.card_number_text);
-//            EditText expirationDateEditText = (EditText) findViewById(R.id.expiration_date_text);
-//            EditText securityCodeEditText = (EditText) findViewById(R.id.security_code_text);
-
-
-
-            // TODO: Add confirmation test
-            // Go to Browse page
-//            Intent browseIntent = new Intent(CheckoutActivity.this, BrowseActivity.class);
-//            CheckoutActivity.this.startActivity(browseIntent);
         }
     }  // End of class CheckoutButtonHandler
 
-
-    // private class zipCodeChanged implements TextWatcher { TODO: @Kyle Check this over
-
-    //     @Override
-    //     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-
-    //     }
-
-    //     @Override
-    //     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    //     }
-
-    //     @Override
-    //     public void afterTextChanged(Editable s) {
-
-    //     }
-    // }
-
-    public void showOrderConfirmationDialog(String message) {
+    /**
+     * A method to create a confirmation order dialog.
+     */
+    public void showOrderConfirmationDialog(String message)
+    {
         AlertDialog.Builder alert = new AlertDialog.Builder( CheckoutActivity.this );
         alert.setTitle( "Confirm Purchase" );
         alert.setMessage( message );
-        confirmationDialog continuePurchase = new confirmationDialog( );
+        confirmationDialogListener continuePurchase = new confirmationDialogListener( );
         alert.setPositiveButton( "YES", continuePurchase );
         alert.setNegativeButton( "NO", continuePurchase );
-        alert.show( );
+        alert.show();
     }
 
-    private class confirmationDialog implements DialogInterface.OnClickListener {
-        public void onClick( DialogInterface dialog, int id ) {
-            if( id == -1 ) /* YES button */ {
-                // Go to Browse page
-            Intent browseIntent = new Intent(CheckoutActivity.this, BrowseActivity.class);
-            finishAffinity();
-            CheckoutActivity.this.startActivity(browseIntent);
-//                CheckoutActivity.this.finish();
-            }
-            else if( id == -2 ) // NO button
-                dialog.dismiss();
-        }
-    }
-
-    private void displayErrorDialog() {
+    /**
+     * A method to display a error dialog.
+     */
+    private void displayErrorDialog()
+    {
         new AlertDialog.Builder(CheckoutActivity.this)
                 .setTitle("Invalid Input")
                 .setMessage("One or more fields contains null input")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
+                .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int whichButton)
+                    {
                         dialog.dismiss();
                     }
                 })
                 .show();
     }
 
-
-
-    private class inputErrorDialog implements DialogInterface.OnClickListener {
-        public void onClick( DialogInterface dialog, int id ) {
-            if( id == -1 ) /* YES button */ {
-                CheckoutActivity.this.finish();
+    /**
+     * Dialog listener.
+     */
+    private class confirmationDialogListener implements DialogInterface.OnClickListener
+    {
+        /**
+         * Listener function
+         *
+         * @param dialog The dialog this is associated.
+         * @param id The result of the dialog.
+         */
+        public void onClick(DialogInterface dialog, int id)
+        {
+            if (id == -1)  // If positive result (yes button)
+            {
+                // Go to Browse page
+                Intent browseIntent = new Intent(CheckoutActivity.this, BrowseActivity.class);
+                finishAffinity();
+                CheckoutActivity.this.startActivity(browseIntent);
             }
-            else if( id == -2 ) // NO button
-                CheckoutActivity.this.finish( );    // TODO may need to eventually change this
+            else if( id == -2 )  // If negative result (no button)
+            {
+                dialog.dismiss();
+            }
         }
-    }
-
-
-
+    }  // End of class confirmationDialogListener
 }  // End of class CheckoutActivity

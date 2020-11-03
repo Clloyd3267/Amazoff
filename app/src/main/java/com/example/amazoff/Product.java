@@ -7,8 +7,6 @@
 * Description : Model class to store data for a single product.
 *=============================================================================*/
 
-// TODO: Should all data be final and setters be removed in the long term?
-
 // Package Definition
 package com.example.amazoff;
 
