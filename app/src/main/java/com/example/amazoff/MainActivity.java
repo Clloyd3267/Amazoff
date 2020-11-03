@@ -36,15 +36,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        // TODO: Should we even have a MainActivity view?
-        // https://stackoverflow.com/questions/17346102/must-every-activity-have-a-layout
 
         // Open database controller
         dbManager = new DatabaseManager(this);
-        dbManager.resetDatabase();  // TODO: How do we init database and reset?
+        dbManager.resetDatabase();
 
-        // TODO: Move this to a load data function in DatabaseManager?
         // Convert image resources to Bitmaps
         Bitmap xbox = BitmapFactory.decodeResource(getResources(), R.drawable.xbox_one_s);
         Bitmap nintendo_switch = BitmapFactory.decodeResource(getResources(), R.drawable.nintendo_switch);
@@ -58,7 +54,6 @@ public class MainActivity extends AppCompatActivity
         Bitmap bose_home_300 = BitmapFactory.decodeResource(getResources(), R.drawable.bose_home_300);
         Bitmap epiPen = BitmapFactory.decodeResource(getResources(), R.drawable.epi_pen);
 
-
         // Create and store products to the database
         dbManager.storeProduct(new Product("XBox One","The newest game system from Microsoft.",2.5, 147,199.99, xbox));
         dbManager.storeProduct(new Product("Playstation 4","Sony's newest game system.",3, 246,249.99, playstation));
@@ -70,7 +65,6 @@ public class MainActivity extends AppCompatActivity
         dbManager.storeProduct(new Product("Apple Airpods", "Wireless version of Apple's horrible headphone design.", 2.5, 345, 149.99, apple_airpods));
         dbManager.storeProduct(new Product("Apple Airpod Pros", "Slightly more comfortable wireless headphones by Apple.", 4, 134, 249.99, airpod_pros));
         dbManager.storeProduct(new Product("Bose Home 300", "Wireless speaker for your home.", 4, 13, 89.99, bose_home_300));
-
         dbManager.storeProduct(new Product("Epi Pen", "This will save your life but kill your wallet", 3.5, 10, 699.99, epiPen));
 
         // Launch the Browse Activity
