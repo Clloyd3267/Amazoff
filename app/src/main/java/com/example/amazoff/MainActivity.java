@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity
         dbManager.storeProduct(new Product("Samsung Galaxy Watch 3", "Brand new watch by Samsung. Now with better health tracking.", 4.5, 8, 429.99, samsung_galaxy_watch_3));
         dbManager.storeProduct(new Product("Gaming PC", "Powerful PC, perfect for gaming, school, and work.", 4.5, 25, 1299.99, gaming_computer));
         dbManager.storeProduct(new Product("Apple Airpods", "Wireless version of Apple's horrible headphone design.", 2.5, 345, 149.99, apple_airpods));
-        dbManager.storeProduct(new Product("Apple Airpod Pros", "Slightly more comfortlable wireless headphones by Apple.", 4, 134, 249.99, airpod_pros));
+        dbManager.storeProduct(new Product("Apple Airpod Pros", "Slightly more comfortable wireless headphones by Apple.", 4, 134, 249.99, airpod_pros));
         dbManager.storeProduct(new Product("Bose Home 300", "Wireless speaker for your home.", 4, 13, 89.99, bose_home_300));
 
         dbManager.storeProduct(new Product("Epi Pen", "This will save your life but kill your wallet", 3.5, 10, 699.99, epiPen));
 
-
         // Launch the Browse Activity
         Intent callBrowseViewActivity = new Intent(this, BrowseActivity.class);
+        finish();
         this.startActivity(callBrowseViewActivity);
     }
 }  // End of class MainActivity
