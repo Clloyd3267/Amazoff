@@ -18,11 +18,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import java.text.DecimalFormat;
 import java.util.Hashtable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Checkout Activity class to show a checkout form.
@@ -127,18 +134,234 @@ public class CheckoutActivity extends AppCompatActivity
         orderTotal = Double.parseDouble(getIntent().getStringExtra("Order Total"));
 
         // Get order data widgets
+
+        // First name
         firstNameEditText = (EditText) findViewById(R.id.first_name_text);
+        firstNameEditText.addTextChangedListener(new TextValidator(firstNameEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isAlpha(text)))
+                {
+                    textView.setError("Invalid First Name!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // Last name
         lastNameEditText = (EditText) findViewById(R.id.last_name_text);
+        lastNameEditText.addTextChangedListener(new TextValidator(lastNameEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isAlpha(text)))
+                {
+                    textView.setError("Invalid Last Name!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // Phone number
         phoneNumberEditText = (EditText) findViewById(R.id.phone_number_text);
+        phoneNumberEditText.addTextChangedListener(new TextValidator(phoneNumberEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isPhoneNumber(text)))
+                {
+                    textView.setError("Invalid Phone Number!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // Email address
         emailEditText = (EditText) findViewById(R.id.email_address_text);
+        emailEditText.addTextChangedListener(new TextValidator(emailEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isEmailAddress(text)))
+                {
+                    textView.setError("Invalid Email Address!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // Address
         addressEditText = (EditText) findViewById(R.id.address_text);
+        addressEditText.addTextChangedListener(new TextValidator(addressEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0))
+                {
+                    textView.setError("Invalid Address!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // City
         cityEditText = (EditText) findViewById(R.id.city_text);
+        cityEditText.addTextChangedListener(new TextValidator(cityEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isAlpha(text)))
+                {
+                    textView.setError("Invalid City!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // State
         stateEditText = (EditText) findViewById(R.id.state_text);
+        stateEditText.addTextChangedListener(new TextValidator(stateEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isAlpha(text)))
+                {
+                    textView.setError("Invalid State!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // Zipcode
         zipCodeEditText = (EditText) findViewById(R.id.zip_code_text);
+        zipCodeEditText.addTextChangedListener(new TextValidator(zipCodeEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isZipCode(text)))
+                {
+                    textView.setError("Invalid Zipcode!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // Country
         countryEditText = (EditText) findViewById(R.id.country_text);
+        countryEditText.addTextChangedListener(new TextValidator(countryEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isAlpha(text)))
+                {
+                    textView.setError("Invalid Country!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // Card number
         cardNumberEditText = (EditText) findViewById(R.id.card_number_text);
+        cardNumberEditText.addTextChangedListener(new TextValidator(cardNumberEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() < 13) ||
+                    (text.length() > 19) ||
+                    (!isNumber(text)))
+                {
+                    textView.setError("Invalid Card Number!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // Expiration date
         expirationDateEditText = (EditText) findViewById(R.id.expiration_date_text);
+        expirationDateEditText.addTextChangedListener(new TextValidator(expirationDateEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isExpDate(text)))
+                {
+                    textView.setError("Invalid Expiration Date!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
+
+        // CVC code
         securityCodeEditText = (EditText) findViewById(R.id.security_code_text);
+        securityCodeEditText.addTextChangedListener(new TextValidator(securityCodeEditText)
+        {
+            @Override public void validate(TextView textView, String text)
+            {
+                if ((text == null) ||
+                    (text.length() == 0) ||
+                    (!isCVC(text)))
+                {
+                    textView.setError("Invalid Security Code!");
+                }
+                else
+                {
+                    textView.setError(null);
+                }
+            }
+        });
     }
 
     /**
@@ -153,21 +376,35 @@ public class CheckoutActivity extends AppCompatActivity
          */
         public void onClick(View v)
         {
-            // Ensure all fields are not empty
-            boolean emptyInput = firstNameEditText.getText().toString().isEmpty() |
-                    lastNameEditText.getText().toString().isEmpty() |
-                    phoneNumberEditText.getText().toString().isEmpty() |
-                    emailEditText.getText().toString().isEmpty() |
-                    addressEditText.getText().toString().isEmpty() |
-                    cityEditText.getText().toString().isEmpty() |
-                    stateEditText.getText().toString().isEmpty() |
-                    zipCodeEditText.getText().toString().isEmpty() |
-                    countryEditText.getText().toString().isEmpty() |
-                    cardNumberEditText.getText().toString().isEmpty() |
-                    expirationDateEditText.getText().toString().isEmpty() |
-                    securityCodeEditText.getText().toString().isEmpty();
+            // Trigger onTextChanged
+            firstNameEditText.setText(firstNameEditText.getText());
+            lastNameEditText.setText(lastNameEditText.getText());
+            phoneNumberEditText.setText(phoneNumberEditText.getText());
+            emailEditText.setText(emailEditText.getText());
+            addressEditText.setText(addressEditText.getText());
+            cityEditText.setText(cityEditText.getText());
+            stateEditText.setText(stateEditText.getText());
+            zipCodeEditText.setText(zipCodeEditText.getText());
+            countryEditText.setText(countryEditText.getText());
+            cardNumberEditText.setText(cardNumberEditText.getText());
+            expirationDateEditText.setText(expirationDateEditText.getText());
+            securityCodeEditText.setText(securityCodeEditText.getText());
 
-            if (!emptyInput)
+            // Ensure all fields are valid
+            boolean invalidInput = ((firstNameEditText.getError() != null) ||
+                                    (lastNameEditText.getError() != null) ||
+                                    (phoneNumberEditText.getError() != null) ||
+                                    (emailEditText.getError() != null) ||
+                                    (addressEditText.getError() != null) ||
+                                    (cityEditText.getError() != null) ||
+                                    (stateEditText.getError() != null) ||
+                                    (zipCodeEditText.getError() != null) ||
+                                    (countryEditText.getError() != null) ||
+                                    (cardNumberEditText.getError() != null) ||
+                                    (expirationDateEditText.getError() != null) ||
+                                    (securityCodeEditText.getError() != null));
+
+            if (!invalidInput)
             {
                 // Get order data
                 String firstName = firstNameEditText.getText().toString();
@@ -234,7 +471,7 @@ public class CheckoutActivity extends AppCompatActivity
     {
         new AlertDialog.Builder(CheckoutActivity.this)
                 .setTitle("Invalid Input")
-                .setMessage("One or more fields contains null input")
+                .setMessage("One or more fields contains errors")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int whichButton)
@@ -271,4 +508,61 @@ public class CheckoutActivity extends AppCompatActivity
             }
         }
     }  // End of class confirmationDialogListener
+
+    public abstract class TextValidator implements TextWatcher {
+        private final TextView textView;
+
+        public TextValidator(TextView textView) {
+            this.textView = textView;
+        }
+
+        public abstract void validate(TextView textView, String text);
+
+        @Override
+        final public void afterTextChanged(Editable s) {
+            String text = textView.getText().toString();
+            validate(textView, text);
+        }
+
+        @Override
+        final public void beforeTextChanged(CharSequence s, int start, int count, int after) { /* Don't care */ }
+
+        @Override
+        final public void onTextChanged(CharSequence s, int start, int before, int count) { /* Don't care */ }
+    }
+
+    public boolean isAlpha(String name)
+    {
+        return name.matches("[a-zA-Z]+");
+    }
+
+    public boolean isNumber(String number)
+    {
+        return number.matches("\\d+(?:\\.\\d+)?");
+    }
+
+    public boolean isEmailAddress(String email)
+    {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public boolean isPhoneNumber(String num)
+    {
+        return Patterns.PHONE.matcher(num).matches();
+    }
+
+    public boolean isZipCode(String zipCode)
+    {
+        return zipCode.matches("^\\d{5}(?:[-\\s]\\d{4})?$");
+    }
+
+    public boolean isExpDate(String date)
+    {
+        return date.matches("(0[1-9]|10|11|12)/20[0-9]{2}$");
+    }
+
+    public boolean isCVC(String cvc)
+    {
+        return cvc.matches("^[0-9]{3,4}$");
+    }
 }  // End of class CheckoutActivity

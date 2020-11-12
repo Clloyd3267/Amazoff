@@ -123,7 +123,7 @@
                 <EditText
                     android:id="@+id/zip_code_text"
                     android:layout_width="match_parent"
-                    android:maxLength="5"
+                    android:maxLength="6"
                     android:layout_height="wrap_content"
                     android:inputType="number"/>
 
@@ -206,7 +206,7 @@
                 <EditText
                     android:id="@+id/expiration_date_text"
                     android:layout_width="match_parent"
-                    android:maxLength="5"
+                    android:maxLength="7"
                     android:layout_height="wrap_content"
                     android:inputType="date"/>
 
